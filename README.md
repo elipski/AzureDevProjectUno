@@ -9,7 +9,7 @@ This project is a Python web application built using Flask. The user can log in 
 
 Or, once the MS Login button is implemented, it will automatically log into the `admin` account.
 
-## Project Instructions (For Student)
+## Project Instructions
 
 You are expected to do the following to complete this project:
 1. Create a Resource Group in Azure.
