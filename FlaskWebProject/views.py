@@ -129,6 +129,7 @@ def _save_cache(cache):
         session['token_cache'] = cache.serialize()
 
 def _build_msal_app(cache=None, authority=None):
+    print("ClientID: " + str(Config.CLIENT_ID))
     return ConfidentialClientApplication(Config.CLIENT_ID, client_credential=Config.CLIENT_SECRET, authority=authority or Config.AUTHORITY, token_cache=cache)
     #return None
 

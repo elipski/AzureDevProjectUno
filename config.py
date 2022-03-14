@@ -5,10 +5,10 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
 
-    APP_CONFIG_CONNECTION_STRING = os.environ.get('AZURE_APP_CONFIG_CONNECTION_STRING')
+    APP_CONFIG_CONNECTION_STRING = os.environ.get('AZURE_APP_CONFIG_CONNECTION_STRING')                     #TODO: Add to Web app configurations
     app_config_client = AzureAppConfigurationClient.from_connection_string(APP_CONFIG_CONNECTION_STRING)
 
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret-key'                                               #Don't know what this is used for or how it's used
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret-key'                                               #TODO: Add to Web app configurations Don't know what this is used for or how it's used
 
     BLOB_ACCOUNT = os.environ.get('BLOB_ACCOUNT') or 'finalprojectsa'                                       #TODO: Add to Web app configurations
     BLOB_STORAGE_KEY = app_config_client.get_configuration_setting(key='BLOB_STORAGE_KEY').value
@@ -40,13 +40,11 @@ class Config(object):
     if not CLIENT_SECRET:
         raise ValueError("Need to define CLIENT_SECRET environment variable")
        
-    # Client Secrete value: tXv7Q~LkT0B6jA_L7MoKbbF44sYZ~Do4JtZ2S
-    # Client Secrete ID: 134e98e2-8e20-4c70-8c5b-7339f84a34df
 
     # AUTHORITY = "https://login.microsoftonline.com/common"  # For multi-tenant app, else put tenant name
-    AUTHORITY = app_config_client.get_configuration_setting(key='AUTHORITY').value                      #"https://login.microsoftonline.com/f7aa6e8f-547c-4b9b-abc2-7dd1ec4ce92b"
+    AUTHORITY = app_config_client.get_configuration_setting(key='AUTHORITY').value
 
-    CLIENT_ID = os.environ.get('CLINET_ID')                                                             #TODO: Add to Web app configurations
+    CLIENT_ID = os.environ.get('CLIENT_ID')                                                             #TODO: Add to Web app configurations
 
     REDIRECT_PATH = "/getAToken"  # Used to form an absolute URL; must match to app's redirect_uri set in AAD
 
