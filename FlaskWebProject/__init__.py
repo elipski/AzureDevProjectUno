@@ -12,15 +12,15 @@ from flask_session import Session
 app = Flask(__name__)
 app.config.from_object(Config)
 # TODO: Add any logging levels and handlers with app.logger
-app.logger.setLevel(logging.INFO)
+#app.logger.setLevel(logging.INFO)
 #logger = logging.getLogger('azure.mgmt.resource')
-app.logger = logging.getLogger('azure')
-app.logger.setLevel(logging.DEBUG)
+#app.logger = logging.getLogger('azure')
+#app.logger.setLevel(logging.DEBUG)
 
 # Set the desired logging level
-#streamHandler = logging.StreamHandler(stream=sys.stdout)
-#streamHandler.setLevel(logging.INFO)
-#app.logger.addHandler(streamHandler)
+streamHandler = logging.StreamHandler(stream=sys.stdout)
+streamHandler.setLevel(logging.INFO)
+app.logger.addHandler(streamHandler)
 Session(app)
 db = SQLAlchemy(app)
 login = LoginManager(app)
