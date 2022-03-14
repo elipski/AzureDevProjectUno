@@ -5,7 +5,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
 
-    APP_CONFIG_CONNECTION_STRING = os.environ.get('AZURE_APP_CONFIG_CONNECTION_STRING')                     #TODO: Add to Web app configurations
+    APP_CONFIG_CONNECTION_STRING = os.environ.get('AZURE_APP_CONFIG_CONNECTION_STRING') 
+    print("App Connection String: "+ APP_CONFIG_CONNECTION_STRING )                    #TODO: Add to Web app configurations
     app_config_client = AzureAppConfigurationClient.from_connection_string(APP_CONFIG_CONNECTION_STRING)
 
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret-key'                                               #TODO: Add to Web app configurations Don't know what this is used for or how it's used
