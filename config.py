@@ -1,24 +1,20 @@
 import os
 from azure.appconfiguration import AzureAppConfigurationClient, ConfigurationSetting
-from FlaskWebProject import app
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
 
     APP_CONFIG_CONNECTION_STRING = os.environ.get('AZURE_APP_CONFIG_CONNECTION_STRING') 
-    app.logger.info('App Connection String: ' + APP_CONFIG_CONNECTION_STRING )                    #TODO: Add to Web app configurations
     app_config_client = AzureAppConfigurationClient.from_connection_string(APP_CONFIG_CONNECTION_STRING)
 
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret-key'                                               #TODO: Add to Web app configurations Don't know what this is used for or how it's used
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret-key'  
 
-    BLOB_ACCOUNT = os.environ.get('BLOB_ACCOUNT') or 'finalprojectsa'                                       #TODO: Add to Web app configurations
+    BLOB_ACCOUNT = os.environ.get('BLOB_ACCOUNT') or 'finalprojectsa'                                       
     BLOB_STORAGE_KEY = app_config_client.get_configuration_setting(key='BLOB_STORAGE_KEY').value
-    BLOB_CONTAINER = os.environ.get('BLOB_CONTAINER') or 'images'                                           #TODO: Add to Web app configurations
+    BLOB_CONTAINER = os.environ.get('BLOB_CONTAINER') or 'images'                                           
     #STORAGE_CONNECTION = os.environ.get('STOREAGE_CONNECTION')
     STORAGE_URL = app_config_client.get_configuration_setting(key='BLOB_STORAGE_URL').value 
-    app.logger.info('STORAGE_URL: ' + STORAGE_URL)
-
 
     #retrieved_config_setting = app_config_client.get_configuration_setting(key='TestApp:Settings:Message')
     SQL_SERVER = app_config_client.get_configuration_setting(key='SQL_SERVER').value           
