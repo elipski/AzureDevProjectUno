@@ -3,6 +3,7 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
+import logging
 from flask import render_template, flash, redirect, request, session, url_for
 from werkzeug.urls import url_parse
 from config import Config
@@ -21,7 +22,7 @@ imageSourceUrl = 'https://'+ app.config['BLOB_ACCOUNT']  + '.blob.core.windows.n
 @login_required
 def home():
     user = User.query.filter_by(username=current_user.username).first_or_404()
-    app.logger.info('User ID: ' + User.username)
+    logging.info('User ID: ' + User.username)
     posts = Post.query.all()
     return render_template(
         'index.html',
@@ -36,7 +37,7 @@ def new_post():
     if form.validate_on_submit():
         post = Post()
         post.save_changes(form, request.files['image_path'], current_user.id, new=True)
-        app.logger.info('New image: ' + Post.image_path)
+        logging.info('New image: ' + Post.image_path)
         return redirect(url_for('home'))
     return render_template(
         'post.html',
@@ -52,7 +53,7 @@ def post(id):
     post = Post.query.get(int(id))
     form = PostForm(formdata=request.form, obj=post)
     if form.validate_on_submit():
-        app.logger.info('Save image: ' + Post.image_path)
+        logging.info('Save image: ' + Post.image_path)
         print(request.files['image_path'])
         post.save_changes(form, request.files['image_path'], current_user.id)
         return redirect(url_for('home'))
@@ -67,7 +68,7 @@ def post(id):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        app.logger.info('Authenticated: ' + str(current_user) )   
+        logging.info('Authenticated: ' + str(current_user) )   
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():

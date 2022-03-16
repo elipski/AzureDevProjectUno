@@ -1,5 +1,7 @@
 from datetime import datetime
 from io import BufferedReader
+from logging import Logger
+import logging
 from FlaskWebProject import app, db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -55,7 +57,7 @@ class Post(db.Model):
 
         if file:
             filename1 = secure_filename(file.filename);
-            print('file.filename:' + file.filename)
+            logging.info("filename1: " + str(filename1))
             fileextension = filename1.rsplit('.',1)[1];
             Randomfilename = id_generator();
             filename = Randomfilename + '.' + fileextension;
@@ -73,7 +75,7 @@ class Post(db.Model):
                     contiainer_client.delete_blob(self.image_path)
 
             except Exception as e:
-                app.logger.error("Exception saving Blob: " + str(e))
+                logging.error("Exception saving Blob: " + str(e))
                 flash(Exception)
                
             self.image_path =  filename
