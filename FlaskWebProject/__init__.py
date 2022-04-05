@@ -14,7 +14,7 @@ app.config.from_object(Config)
 # TODO: Add any logging levels and handlers with app.logger
 #app.logger.setLevel(logging.INFO)
 
-logging.basicConfig(format='%(levelname)s:%(message)s %(asctime)s', level=logging.DEBUG)
+logging.basicConfig(format='%(levelname)s %(asctime)s :%(message)s ', level=logging.INFO)
 
 #streamHandler = logging.StreamHandler(stream=sys.stdout)
 #streamHandler.setLevel(logging.INFO)

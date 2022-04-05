@@ -54,7 +54,6 @@ def post(id):
     form = PostForm(formdata=request.form, obj=post)
     if form.validate_on_submit():
         logging.info('Save image: ' + Post.image_path)
-        print(request.files['image_path'])
         post.save_changes(form, request.files['image_path'], current_user.id)
         return redirect(url_for('home'))
  
@@ -131,7 +130,7 @@ def _save_cache(cache):
         session['token_cache'] = cache.serialize()
 
 def _build_msal_app(cache=None, authority=None):
-    print("ClientID: " + str(Config.CLIENT_ID))
+    logging.info("ClientID: " + str(Config.CLIENT_ID))
     return ConfidentialClientApplication(Config.CLIENT_ID, client_credential=Config.CLIENT_SECRET, authority=authority or Config.AUTHORITY, token_cache=cache)
     #return None
 
