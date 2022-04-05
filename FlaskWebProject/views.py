@@ -57,6 +57,7 @@ def post(id):
         post.save_changes(form, request.files['image_path'], current_user.id)
         return redirect(url_for('home'))
  
+    logging.info('imageSourceUrl: ' + imageSourceUrl)
     return render_template(
         'post.html',
         title='Edit Post',
