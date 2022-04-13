@@ -57,6 +57,7 @@ def post(id):
         post.save_changes(form, request.files['image_path'], current_user.id)
         return redirect(url_for('home'))
  
+    logging.info('image_path: ' + str(imageSourceUrl+post.image_path,))
     logging.info('imageSourceUrl: ' + imageSourceUrl)
     return render_template(
         'post.html',
@@ -74,9 +75,10 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
+            logging.info('Invalid login attempt')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
+        logging.info('logged in successfully')
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('home')
