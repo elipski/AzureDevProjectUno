@@ -89,7 +89,6 @@ def login():
 @app.route(Config.REDIRECT_PATH)  # Its absolute URL must match your app's redirect_uri set in AAD
 def authorized():
     if request.args.get('state') != session.get("state"):
-        logging.info('logged in successfully')
         return redirect(url_for("home"))  # No-OP. Goes back to Index page
     if "error" in request.args:  # Authentication/Authorization failure
         return render_template("auth_error.html", result=request.args)
@@ -133,7 +132,7 @@ def _save_cache(cache):
         session['token_cache'] = cache.serialize()
 
 def _build_msal_app(cache=None, authority=None):
-    logging.info("ClientID: " + str(Config.CLIENT_ID))
+    logging.info("logged in successfully " + str(Config.CLIENT_ID))
     return ConfidentialClientApplication(Config.CLIENT_ID, client_credential=Config.CLIENT_SECRET, authority=authority or Config.AUTHORITY, token_cache=cache)
     #return None
 
